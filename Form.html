@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Submittal Form</title>
+</head>
+<body>
+  <h2>Login</h2>
+  <div id="login-section">
+    <input type="email" id="login-email" placeholder="Email" required><br><br>
+    <input type="password" id="login-password" placeholder="Password" required><br><br>
+    <button id="login-button">Login</button>
+  </div>
+
+  <div id="form-section" style="display:none;">
+    <h2>Submittal Form</h2>
+    <form id="submittal-form">
+      <label>Submittal Number:</label>
+      <input type="text" id="submittal_number" required><br><br>
+
+      <label>Revision:</label>
+      <input type="number" id="revision" required><br><br>
+
+      <label>Description:</label>
+      <textarea id="description" required></textarea><br><br>
+
+      <label>Attachment:</label>
+      <input type="text" id="attachment" placeholder="List of Attachments"><br><br>
+
+      <label>Status:</label>
+      <select id="status">
+        <option value="Under Review">Under Review</option>
+        <option value="Approved">Approved</option>
+        <option value="Rejected">Rejected</option>
+      </select><br><br>
+
+      <label>Submittal Date:</label>
+      <input type="date" id="submittal_date"><br><br>
+
+      <label>Engineer Review Due Date:</label>
+      <input type="date" id="review_due_date"><br><br>
+
+      <label>Response Date:</label>
+      <input type="date" id="response_date"><br><br>
+
+      <label>Photo Attachment:</label>
+      <input type="file" id="photo_attachment" accept="image/*,video/*"><br><br>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+    const supabaseUrl = 'https://ilbdpurxgzelsuimsfdo.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsYmRwdXJ4Z3plbHN1aW1zZmRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk4OTI4MDYsImV4cCI6MjA3NTQ2ODgwNn0.4y1Lbga8L1zjwxPHOANAj91n12afpNWqg3aEeM3ZsEU';
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    document.getElementById('login-button').addEventListener('click', async () => {
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        alert('Login failed: ' + error.message);
+      } else {
+        alert('Login successful!');
+        document.getElementById('login-section').style.display = 'none';
+        document.getElementById('form-section').style.display = 'block';
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('submittal-form');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const submittal_number = document.getElementById('submittal_number').value;
+        const revision = parseInt(document.getElementById('revision').value);
+        const description = document.getElementById('description').value;
+        const attachment = document.getElementById('attachment').value;
+        const status = document.getElementById('status').value;
+        const submittal_date = document.getElementById('submittal_date').value || null;
+        const review_due_date = document.getElementById('review_due_date').value || null;
+        const response_date = document.getElementById('response_date').value || null;
+
+        const photoInput = document.getElementById('photo_attachment');
+        const photoFile = photoInput.files[0];
+        let photoUrl = null;
+
+        if (photoFile) {
+          const photoFileName = `${Date.now()}_${photoFile.name}`;
+          const { data: uploadData, error: uploadError } = await supabase.storage
+            .from('Photo attachment')
+            .upload(photoFileName, photoFile);
+
+          if (uploadError) {
+            console.error('Upload error:', uploadError);
+            alert('Photo upload failed: ' + uploadError.message);
+            return;
+          }
+
+          const { data: publicUrlData } = supabase
+            .storage
+            .from('Photo attachment')
+            .getPublicUrl(photoFileName);
+
+          photoUrl = publicUrlData.publicUrl;
+        }
+
+        const { data, error } = await supabase
+          .from('Submittal form')
+          .insert([{
+            'Submittal number': submittal_number,
+            'Revision': revision,
+            'Description': description,
+            'Attachment': attachment,
+            'Status': status,
+            'Submittal Date': submittal_date,
+            'Engineer Review Due Date': review_due_date,
+            'Response Date': response_date,
+            'Photo Attachment': photoUrl
+          }]);
+
+        if (error) {
+          console.error('Insert error:', error);
+          alert('Error: ' + error.message);
+        } else {
+          alert('Submitted successfully!');
+          form.reset();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
