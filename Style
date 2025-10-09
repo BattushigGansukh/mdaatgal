@@ -1,13 +1,14 @@
-<style>
-  body {
+body {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0;
-    background: #f4f4f4;
-    font-family: 'Calibri', Arial, sans-serif;
-  }
+  background: #f4f4f4;
+  font-family: 'Calibri', Arial, sans-serif;
+  color: #0047ba;
+}
+
 .form-container {
   display: flex;
   flex-direction: column;
@@ -17,9 +18,7 @@
   border-radius: 12px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.07);
   max-width: 400px;
-}
-body, .form-container {
-color: #0047ba;
+  width: 100%;
 }
 
 .logo-wrapper {
@@ -62,72 +61,43 @@ label {
   color: #333;
 }
 
-input, textarea, select {
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+input,
+textarea,
+select {
   width: 100%;
   padding: 9px 12px;
-  margin-bottom: 18px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1em;
   box-sizing: border-box;
   transition: border-color 0.2s;
+  margin-bottom: 8px;
 }
 
-input:focus, textarea:focus, select:focus {
+input[type="file"] {
+  width: auto;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
   border-color: #0275d8;
   outline: none;
 }
 
-/* Make the form section aligned left in a single column */
-/* Ensure the entire form is aligned left and fields are in a single column */
-#form-section {
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
 #submittal-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px; /* space between each field group */
-  width: 100%;
-  max-width: 400px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
   width: 100%;
 }
 
-/* Each label/input pair stacked vertically */
-#submittal-form label {
-  text-align: left;
-  margin-bottom: 4px;
-  font-weight: bold;
-  width: 100%;
-}
-
-#submittal-form input,
-#submittal-form textarea,
-#submittal-form select {
-  margin-bottom: 16px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-#submittal-form input[type="file"] {
-  width: auto; /* file input usually looks best at auto width */
-}
-
+button,
 #submittal-form button[type="submit"] {
-  align-self: flex-start; /* left align the submit button */
-  width: auto;
-  margin-top: 8px;
-}
-
-button {
   background: #0275d8;
   color: white;
   border: none;
@@ -142,9 +112,10 @@ button {
   align-items: center;
   justify-content: center;
   gap: 0.6em;
+  margin-top: 8px;
 }
 
-button:hover {
+button:hover,
+#submittal-form button[type="submit"]:hover {
   background: #025aa5;
 }
-</style>
