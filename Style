@@ -32,9 +32,13 @@ h2 {
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 28px;
   display: flex;
   flex-direction: column;
+}
+
+.form-group:last-child {
+  margin-bottom: 32px;
 }
 
 label {
@@ -54,6 +58,7 @@ select {
   box-sizing: border-box;
   background: #fafbfc;
   transition: border-color 0.2s;
+  margin: 0; /* ensure no default margin causes bunched look */
 }
 
 input:focus,
