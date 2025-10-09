@@ -1,5 +1,5 @@
 body {
-    font-family: "Inter", "Calibri", Arial, sans-serif;
+    font-family: "Inter", "Lucida Sans Unicode", "Lucida Grande", "Calibri", Arial, sans-serif;
     background-color: #f3f4f6;
     color: #0047ba;
     margin: 0;
@@ -10,7 +10,6 @@ body {
     padding: 0;
 }
 
-/* Main container to center the form */
 .main-center {
     display: flex;
     align-items: center;
@@ -20,7 +19,6 @@ body {
     box-sizing: border-box;
 }
 
-/* The form card itself */
 .form-container {
     background: #fff;
     padding: 2.5rem;
@@ -29,15 +27,14 @@ body {
                 0 4px 6px -4px rgba(0, 0, 0, 0.1);
     max-width: 570px;
     width: 100%;
+    font-size: 13px;
 }
 
-/* Logo wrapper */
 .logo-wrapper {
     text-align: center;
     margin-bottom: 2rem;
 }
 
-/* Form title */
 h2, .form-title {
     margin-top: 0;
     margin-bottom: 0.5rem;
@@ -47,7 +44,6 @@ h2, .form-title {
     font-weight: 700;
 }
 
-/* Form description */
 .form-desc {
     color: #6b7280;
     margin-bottom: 2rem;
@@ -56,24 +52,30 @@ h2, .form-title {
     line-height: 1.5;
 }
 
-/* Form group */
 .form-group {
     margin-bottom: 1.75rem;
     display: flex;
     flex-direction: column;
 }
 
-/* Label styling */
 label, .form-label {
-    margin-bottom: 0.5rem;
-    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    padding: 0;
+    display: block;
+    font-weight: bold;
     font-size: 0.875rem;
     color: #374151;
 }
 
-/* Input, textarea, select */
-input,
-textarea,
+input[type=text], 
+input[type=date],
+input[type=datetime],
+input[type=number],
+input[type=search],
+input[type=time],
+input[type=url],
+input[type=email],
+textarea, 
 select,
 .form-input,
 .form-select {
@@ -89,23 +91,19 @@ select,
     transition: border-color 0.2s, box-shadow 0.2s;
     margin: 0;
     margin-bottom: 1.25rem;
+    outline: none;
 }
 
-input:focus,
-textarea:focus,
-select:focus,
-.form-input:focus,
+input:-input:focus,
 .form-select:focus {
     border-color: #0275d8;
     box-shadow: 0 0 0 3px rgba(2, 117, 216, 0.2);
-    outline: none;
 }
 
 .form-input::placeholder {
     color: #9ca3af;
 }
 
-/* File input */
 .form-file {
     display: block;
     width: 100%;
@@ -130,7 +128,6 @@ select:focus,
     background-color: #f3f4f6;
 }
 
-/* Checkbox row */
 .form-checkbox-row {
     display: flex;
     align-items: flex-start;
@@ -154,9 +151,10 @@ select:focus,
     border-color: #6a64f1;
 }
 
-/* Submit button */
 button,
-.form-btn {
+.form-btn,
+input[type=submit],
+input[type=button] {
     text-align: center;
     width: 100%;
     font-size: 1rem;
@@ -172,12 +170,30 @@ button,
 }
 
 button:hover,
-.form-btn:hover {
+.form-btn:hover,
+input[type=submit]:hover,
+input[type=button]:hover {
     background-color: #025aa5;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive */
+.required {
+    color: red;
+}
+
+.field-divided {
+    width: 49%;
+}
+
+.field-long,
+.field-select {
+    width: 100%;
+}
+
+.field-textarea {
+    height: 100px;
+}
+
 @media (max-width: 600px) {
     .main-center {
         padding: 1rem;
