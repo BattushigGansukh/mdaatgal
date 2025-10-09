@@ -14,61 +14,76 @@
       Submittal Form
     </h2>
 
+    <!-- Login Section -->
     <div id="login-section">
-      <label for="login-email">
-        <span class="icon"><img src="mail.svg" alt="Email"></span>
-        Email:
-      </label>
-      <input type="email" id="login-email" placeholder="Email" required>
-
-      <label for="login-password">
-        <span class="icon"><img src="password-check.svg" alt="Password"></span>
-        Password:
-      </label>
-      <input type="password" id="login-password" placeholder="Password" required>
-
-      <button id="login-button">
+      <div class="form-group">
+        <label for="login-email">
+          <span class="icon"><img src="mail.svg" alt="Email"></span>
+          Email:
+        </label>
+        <input type="email" id="login-email" name="login-email" placeholder="Email" required>
+      </div>
+      <div class="form-group">
+        <label for="login-password">
+          <span class="icon"><img src="password-check.svg" alt="Password"></span>
+          Password:
+        </label>
+        <input type="password" id="login-password" name="login-password" placeholder="Password" required>
+      </div>
+      <button id="login-button" type="button">
         <span class="icon"><img src="log-in.svg" alt="Login"></span>
         Login
       </button>
     </div>
 
+    <!-- Form Section -->
     <div id="form-section" style="display:none;">
       <form id="submittal-form">
-      <label>Submittal Number:</label>
-      <input type="text" id="submittal_number" required><br><br>
-
-      <label>Revision:</label>
-      <input type="number" id="revision" required><br><br>
-
-      <label>Description:</label>
-      <textarea id="description" required></textarea><br><br>
-
-      <label>Attachment:</label>
-      <input type="text" id="attachment" placeholder="List of Attachments"><br><br>
-
-      <label>Status:</label>
-      <select id="status">
-        <option value="Under Review">Under Review</option>
-        <option value="Approved">Approved</option>
-        <option value="Rejected">Rejected</option>
-      </select><br><br>
-
-      <label>Submittal Date:</label>
-      <input type="date" id="submittal_date"><br><br>
-
-      <label>Engineer Review Due Date:</label>
-      <input type="date" id="review_due_date"><br><br>
-
-      <label>Response Date:</label>
-      <input type="date" id="response_date"><br><br>
-
-      <label>Photo Attachment:</label>
-      <input type="file" id="photo_attachment" accept="image/*,video/*"><br><br>
-
-      <button type="submit">Submit</button>
-    </form>
-  </div>
+        <div class="form-group">
+          <label for="submittal_number">Submittal Number:</label>
+          <input type="text" id="submittal_number" name="submittal_number" required>
+        </div>
+        <div class="form-group">
+          <label for="revision">Revision:</label>
+          <input type="number" id="revision" name="revision" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="attachment">Attachment:</label>
+          <input type="text" id="attachment" name="attachment" placeholder="List of Attachments">
+        </div>
+        <div class="form-group">
+          <label for="status">Status:</label>
+          <select id="status" name="status">
+            <option value="Under Review">Under Review</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="submittal_date">Submittal Date:</label>
+          <input type="date" id="submittal_date" name="submittal_date">
+        </div>
+        <div class="form-group">
+          <label for="review_due_date">Engineer Review Due Date:</label>
+          <input type="date" id="review_due_date" name="review_due_date">
+        </div>
+        <div class="form-group">
+          <label for="response_date">Response Date:</label>
+          <input type="date" id="response_date" name="response_date">
+        </div>
+        <div class="form-group">
+          <label for="photo_attachment">Photo Attachment:</label>
+          <input type="file" id="photo_attachment" name="photo_attachment" accept="image/*,video/*">
+        </div>
+        <button type="submit">
+          Submit
+        </button>
+      </form>
+    </div>
   </div>
   <script type="module">
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
@@ -81,6 +96,12 @@
     document.getElementById('login-button').addEventListener('click', async () => {
       const email = document.getElementById('login-email').value;
       const password = document.getElementById('login-password').value;
+      document.getElementById('login-password').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    document.getElementById('login-button').click();
+  }
+});
 
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
@@ -157,13 +178,4 @@
     });
   </script>
 </body>
-
 </html>
-
-
-
-
-
-
-
-
