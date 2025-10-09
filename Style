@@ -90,9 +90,15 @@ input:focus, textarea:focus, select:focus {
 #submittal-form {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  gap: 16px; /* space between each field group */
   width: 100%;
-  max-width: 400px; /* optional: controls form width */
+  max-width: 400px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 /* Each label/input pair stacked vertically */
