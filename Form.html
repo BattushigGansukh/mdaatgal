@@ -93,15 +93,17 @@
 
     const supabase = createClient(supabaseUrl, supabaseKey);
 
+    // Allow pressing Enter in password field to trigger login
+    document.getElementById('login-password').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        document.getElementById('login-button').click();
+      }
+    });
+
     document.getElementById('login-button').addEventListener('click', async () => {
       const email = document.getElementById('login-email').value;
       const password = document.getElementById('login-password').value;
-      document.getElementById('login-password').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    document.getElementById('login-button').click();
-  }
-});
 
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
