@@ -79,6 +79,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* Make the form section aligned left in a single column */
+/* Ensure the entire form is aligned left and fields are in a single column */
 #form-section {
   text-align: left;
   display: flex;
@@ -90,21 +91,34 @@ input:focus, textarea:focus, select:focus {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 100%; /* or set a max-width if desired */
+  width: 100%;
+  max-width: 400px; /* optional: controls form width */
 }
 
-#submittal-form label,
+/* Each label/input pair stacked vertically */
+#submittal-form label {
+  text-align: left;
+  margin-bottom: 4px;
+  font-weight: bold;
+  width: 100%;
+}
+
 #submittal-form input,
 #submittal-form textarea,
-#submittal-form select,
-#submittal-form button {
-  margin-bottom: 12px;
-  width: 100%; /* makes inputs and labels expand the full width of the container */
+#submittal-form select {
+  margin-bottom: 16px;
+  width: 100%;
   box-sizing: border-box;
 }
 
 #submittal-form input[type="file"] {
-  width: auto; /* file input looks better at auto width */
+  width: auto; /* file input usually looks best at auto width */
+}
+
+#submittal-form button[type="submit"] {
+  align-self: flex-start; /* left align the submit button */
+  width: auto;
+  margin-top: 8px;
 }
 
 button {
