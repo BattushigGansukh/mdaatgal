@@ -84,16 +84,27 @@
         </button>
       </form>
     </div>
+    <!-- Logout Button -->
+    <button id="logout-button" type="button" style="display:none;">Logout</button>
   </div>
   <script type="module">
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
     const supabaseUrl = 'https://ilbdpurxgzelsuimsfdo.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsYmRwdXJ4Z3plbHN1aW1zZmRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk4OTI4MDYsImV4cCI6MjA3NTQ2ODgwNn0.4y1Lbga8L1zjwxPHOANAj91n12afpNWqg3aEeM3ZsEU';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsYmRpdXJ4Z3plbHN1aW1zZmRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk4OTI4MDYsImV4cCI6MjA3NTQ2ODgwNn0.4y1Lbga8L1zjwxPHOANAj91n12afpNWqg3aEeM3ZsEU';
 
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Allow pressing Enter in password field to trigger login
+    // --- Remember Me: Check for existing session ---
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user) {
+        document.getElementById('login-section').style.display = 'none';
+        document.getElementById('form-section').style.display = 'block';
+        document.getElementById('logout-button').style.display = 'block';
+      }
+    });
+
+    // --- Allow Enter key to trigger login ---
     document.getElementById('login-password').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') {
         e.preventDefault();
@@ -113,7 +124,16 @@
         alert('Login successful!');
         document.getElementById('login-section').style.display = 'none';
         document.getElementById('form-section').style.display = 'block';
+        document.getElementById('logout-button').style.display = 'block';
       }
+    });
+
+    // --- Logout logic ---
+    document.getElementById('logout-button').addEventListener('click', async () => {
+      await supabase.auth.signOut();
+      document.getElementById('login-section').style.display = 'block';
+      document.getElementById('form-section').style.display = 'none';
+      document.getElementById('logout-button').style.display = 'none';
     });
 
     document.addEventListener('DOMContentLoaded', () => {
