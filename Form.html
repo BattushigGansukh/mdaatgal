@@ -5,16 +5,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>Login</h2>
-  <div id="login-section">
-    <input type="email" id="login-email" placeholder="Email" required><br><br>
-    <input type="password" id="login-password" placeholder="Password" required><br><br>
-    <button id="login-button">Login</button>
-  </div>
+  <div class="form-container">
+    <h2>Login</h2>
+    <div id="login-section">
+      <label for="login-email">Email:</label>
+      <input type="email" id="login-email" placeholder="Email" required>
 
-  <div id="form-section" style="display:none;">
-    <h2>Submittal Form</h2>
-    <form id="submittal-form">
+      <label for="login-password">Password:</label>
+      <input type="password" id="login-password" placeholder="Password" required>
+
+      <button id="login-button">Login</button>
+    </div>
+
+    <div id="form-section" style="display:none;">
+      <h2>Submittal Form</h2>
+      <form id="submittal-form">
       <label>Submittal Number:</label>
       <input type="text" id="submittal_number" required><br><br>
 
@@ -49,7 +54,7 @@
       <button type="submit">Submit</button>
     </form>
   </div>
-
+  </div>
   <script type="module">
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
@@ -139,4 +144,5 @@
 </body>
 
 </html>
+
 
